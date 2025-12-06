@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12A1 - Thanh Xuân Rực Rỡ</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FIX: Move Tailwind config here to ensure 'tailwind' object is defined before use -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#fdfbf7', // Màu giấy cũ
+                        'accent': '#d97706', // Màu hổ phách/cam cháy
+                        'navy': '#1e3a8a',
+                    },
+                    fontFamily: {
+                        'script': ['"Dancing Script"', 'cursive'],
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'body': ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d97706;
+            border-radius: 4px;
+        }
+        
+        .memory-card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(-2deg);
+            z-index: 10;
+        }
+
+        /* --------------------------------- */
+        /* RESPONSIVE TIMELINE FIX (Hành Trình) */
+        /* --------------------------------- */
+
+        /* Timeline connector line: Left-aligned on mobile, centered on desktop */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 15px; /* Mobile: line on the far left */
+            width: 2px;
+            background: #e5e7eb;
+            transform: none;
+        }
+        @media (min-width: 768px) {
+            .timeline-line::before {
+                left: 50%; /* Desktop: line centered */
+                transform: translateX(-50%);
+            }
+            /* The main container needs position relative for ::before to work */
+            .timeline-line {
+                position: relative;
+            }
+        }
+
+        /* The marker dot: Left-aligned on mobile, centered on desktop */
+        .timeline-marker {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            width: 10px;
+            height: 10px;
+            background: #d97706; /* accent color */
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .timeline-marker {
+                left: 50%;
+                width: 24px;
+                height: 24px;
+                top: 50%;
+                border: 4px solid white;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Base style for all event wrappers (adds space for line/marker on mobile) */
+        .timeline-event-wrapper {
+            position: relative;
+            padding-left: 40px; /* Space for line and marker on mobile */
+            margin-bottom: 3rem; /* Spacing between events on mobile */
+        }
+        @media (min-width: 768px) {
+            .timeline-event-wrapper {
+                padding-left: 0; /* Reset padding on desktop */
+                margin-bottom: 0; /* Spacing handled by row separation */
+            }
+        }
+        
+        /* Content box styles */
+        .timeline-content-box {
+            width: 100%;
+            border-left: 4px solid; /* Decorative border on mobile */
+        }
+        @media (min-width: 768px) {
+            .timeline-content-box {
+                width: 41.666667%; /* 5/12 */
+                border-left: none; /* Reset border on desktop */
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Message Box Styles */
+        #message-box-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+    </style>
+</head>
+<body class="bg-paper font-body text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-script text-3xl text-accent font-bold">12A1 Memories</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-accent font-medium transition">Trang Chủ</a>
+                    <a href="#timeline" class="text-gray-600 hover:text-accent font-medium transition">Hành Trình</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-accent font-medium transition">Thư Viện Ảnh</a>
+                    <a href="#members" class="text-gray-600 hover:text-accent font-medium transition">Thành Viên</a>
+                    <a href="#guestbook" class="text-gray-600 hover:text-accent font-medium transition">Lưu Bút</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-accent focus:outline-none">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent hover:bg-gray-50 rounded-md">Trang Chủ</a>
+                <a href="#timeline" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent hover:bg-gray-50 rounded-md">Hành Trình</a>
+                <a href="#gallery" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent hover:bg-gray-50 rounded-md">Thư Viện Ảnh</a>
+                <a href="#members" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent hover:bg-gray-50 rounded-md">Thành Viên</a>
+                <a href="#guestbook" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-accent hover:bg-gray-50 rounded-md">Lưu Bút</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <!-- Used unsplash image with fallbacks/placeholders -->
+            <img src="D:\Download\web 12a1\images\anh nen.JPG" 
+                 onerror="this.onerror=null;this.src='https://placehold.co/1950x1080/4A235A/FFFFFF?text=KY+YEU+12A1'"
+                 alt="Class Photo" 
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+        </div>
+
+        <div class="relative z-10 text-center text-white px-4 animate-fade-in-up">
+            <p class="font-script text-4xl md:text-6xl mb-4 text-yellow-300">Niên khóa 2023 - 2026</p>
+            <h1 class="font-serif text-5xl md:text-8xl font-bold mb-6 tracking-tight">CLASS 12A1</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto italic font-light text-gray-200">
+                "Thanh xuân giống như một cơn mưa rào. Dù cho bạn từng bị cảm lạnh vì tắm mưa, bạn vẫn muốn được đắm mình trong cơn mưa ấy lần nữa."
+            </p>
+            <div class="mt-10">
+                <a href="#gallery" class="bg-accent hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition shadow-lg inline-flex items-center gap-2">
+                    Xem kỷ yếu <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-20 max-w-5xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="font-serif text-4xl font-bold text-gray-900 mb-4">Hành Trình Của Chúng Ta</h2>
+            <div class="w-24 h-1 bg-accent mx-auto"></div>
+        </div>
+
+        <!-- timeline-line class for the vertical line -->
+        <div class="relative timeline-line space-y-12 md:space-y-0">
+            
+            <!-- Event 1: Ngày Tựu Trường (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\tuu truong.jpg" alt="Ảnh Tựu Trường" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-accent md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 9, 2023</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Ngày Tựu Trường</h3>
+                    <p class="text-gray-600">Lần đầu tiên gặp gỡ, những ánh mắt ngại ngùng và sự bỡ ngỡ khi bước vào cánh cổng cấp 3. Ai cũng ngây ngô trong tà áo trắng.</p>
+                </div>
+            </div>
+
+            <!-- Event 2:50 nam thanh lap truong  (Content Left, Image Right) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- CONTENT BLOCK (Left on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-blue-500 md:border-r-4 md:border-l-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 9, 2023</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Kỉ niệm 50 năm thành lập trường THPT Đông Hà</h3>
+                    <p class="text-gray-600">Vừa bước chân vào ngôi trường mới đã được đón tiếp bằng sự kiện tuyệt vời này!</p>
+                </div>
+
+                <!-- IMAGE BLOCK (Right on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\50 nam.jpg" alt="Ảnh 50 năm" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+            </div>
+            
+            <!-- Event 3: H3t mùa 4 (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\h3t m4.JPG" alt="Ảnh Kiệt" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-green-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 11, 2024</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Hành Trình Tri Thức mùa 4</h3>
+                    <p class="text-gray-600">Sau này có thể tự hào mà nói rằng mình từng chung lớp với thí sinh Đường lên đỉnh Olympia!</p>
+                </div>
+            </div>
+
+            <!-- Event 4: Xuân trao yêu thương (Content Left, Image Right) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- CONTENT BLOCK (Left on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-purple-500 md:border-r-4 md:border-l-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 1, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Xuân Trao Yêu Thương</h3>
+                    <p class="text-gray-600">Nhìn các em vui đón Tết khiến tụi mình cũng vui lây.</p>
+                </div>
+
+                <!-- IMAGE BLOCK (Right on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\xuantraoyeuthuong.jpg" alt="Ảnh Xuân trao yêu thương" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+            </div>
+
+            <!-- Event 5: Chinh Phục 2025 (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\cp.JPG" alt="Ảnh Chinh Phục" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-pink-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 5, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Chinh Phục 2025</h3>
+                    <p class="text-gray-600">Hôm đó điên thật sự!!!</p>
+                </div>
+            </div>
+
+            <!-- Event 6: Du lịch Cuối Cấp (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\dulich.JPG" alt="Ảnh Du lịch" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-pink-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">THÁNG 6, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">Chuyến du lịch "sóng gió"</h3>
+                    <p class="text-gray-600">Chuyến đi Đà Nẵng 2 ngày 1 đêm tưởng chừng "phá sản" vì mưa bão hóa ra lại là kỉ niệm khó quên nhất.</p>
+                </div>
+            </div>
+
+            <!-- Event 7: 20/10 cuối cùng (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\20thang10.jpg" alt="Ảnh 20/10" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-pink-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide"> NGÀY 20 THÁNG 10, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">20/10 cuối cùng</h3>
+                    <p class="text-gray-600">Vẫn là sự kiện 20/10 ấy mà sao lần này lạ quá.</p>
+                </div>
+            </div>
+
+            <!-- Event 8: 19/11 cuối (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\19thang11.JPG" alt="Ảnh 19/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-pink-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">NGÀY 19 THÁNG 11, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">19/11 cuối cùng</h3>
+                    <p class="text-gray-600">Lần cuối được các chị em của 12A1 tặng quà.</p>
+                </div>
+            </div>
+
+            <!-- Event 9: 20/11 cuối cùng (Content Right, Image Left) -->
+            <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
+                <!-- Marker -->
+                <div class="timeline-marker"></div>
+                
+                <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
+                <div class="md:w-5/12 p-4 hidden md:block">
+                    <img src="D:\Download\web 12a1\images\20thang11.jpg" alt="Ảnh 20/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                </div>
+
+                <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
+                <div class="timeline-content-box bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-pink-500 md:border-l-4 md:border-r-0">
+                    <span class="text-sm text-gray-500 font-bold tracking-wide">NGÀY 20 THÁNG 11, 2025</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">20/11 cuối cùng</h3>
+                    <p class="text-gray-600">Không biết đến bao giờ mới có thể tề tựu đầy đủ như thế này nữa đây T_T.</p>
+                </div>
+            </div>
+        </div>
+        <h1 style="text-align:center">CONTINUE<h1>
+
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl font-bold text-gray-900 mb-4">Mảnh Ghép Ký Ức</h2>
+                <p class="text-gray-600">Click vào ảnh để xem chi tiết nhé!</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Image 1 -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\kich than chet.JPG', 'Ngây ngô nhưng cũng rất sâu sắc')">
+                    <img src="D:\Download\web 12a1\images\kich than chet.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Những vở kịch</div>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\co linh va co ly.JPG', 'Những kỳ thực tập đáng nhớ')">
+                    <img src="D:\Download\web 12a1\images\co linh va co ly.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Những "chị" giáo đáng yêu</div>
+                </div>
+
+                 <!-- Image 3 -->
+                 <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\anh chill 2.JPG', 'Áo dài trắng')">
+                    <img src="D:\Download\web 12a1\images\anh chill 2.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Nắng sân trường</div>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\truoc dulich.JPG', 'Bình yên trước cơn bão')">
+                    <img src="D:\Download\web 12a1\images\truoc dulich.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Vẫn là chuyến du lịch đó</div>
+                </div>
+
+                <!-- Image 5 (NEW) -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\bimatduoigoccay.jpg', 'Đến giờ vẫn không biết thầy Hoàn đã giấu thứ gì?')">
+                    <img src="D:\Download\web 12a1\images\bimatduoigoccay.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Bí mật dưới gốc cây</div>
+                </div>
+
+                <!-- Image 6 (NEW) -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\lambanh.jpg', 'Bánh ngon vậy mà không có giải. Tiếc ghê!')">
+                    <img src="D:\Download\web 12a1\images\lambanh.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Cuộc thi làm bánh</div>
+                </div>
+
+                <!-- Image 7 (NEW) -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('D:\Download\web 12a1\images\bongchuyen.jpg', '12A1 vô địch!!')">
+                    <img src="D:\Download\web 12a1\images\bongchuyen.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Vô địch giải bóng chuyền của khối</div>
+                </div>
+
+                <!-- Image 8 (NEW) -->
+                <div class="polaroid cursor-pointer" onclick="openImageModal('.\web 12a1\images\tiec.jpg', 'Mong có thêm nhiều dịp như này nữa')">
+                    <img src="D:\Download\web 12a1\images\tiec.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">Những bữa tiệc</div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section id="members" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="font-serif text-4xl font-bold text-gray-900 mb-4">Gương Mặt Thân Quen</h2>
+            <p class="text-gray-600">46 thành viên - 46 cá tính</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Member 1: Only display first 3 members here for preview -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex items-center space-x-4 memory-card border border-gray-100">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar" class="w-20 h-20 rounded-full bg-blue-100 p-1">
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Nguyễn Thành Nam</h3>
+                    <span class="text-accent text-sm font-medium">"Nam thần học đường"</span>
+                    <p class="text-gray-500 text-xs italic mt-1">"Ngủ là chính, học là phụ, ăn là nghĩa vụ."</p>
+                </div>
+            </div>
+
+            <!-- Member 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex items-center space-x-4 memory-card border border-gray-100">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" alt="Avatar" class="w-20 h-20 rounded-full bg-pink-100 p-1">
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Trần Thị Hà Lan</h3>
+                    <span class="text-accent text-sm font-medium">"Thủ quỹ khổ nhất 2025"</span>
+                    <p class="text-gray-500 text-xs italic mt-1">"Còn ai chưa nộp quỹ thì nộp lẹ cho tau vớii."</p>
+                </div>
+            </div>
+
+            <!-- Member 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex items-center space-x-4 memory-card border border-gray-100">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jack" alt="Avatar" class="w-20 h-20 rounded-full bg-green-100 p-1">
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">Hoàng Trung Phong</h3>
+                    <span class="text-accent text-sm font-medium">"Thần Gió"</span>
+                    <p class="text-gray-500 text-xs italic mt-1">"Nét như Sony luôn."</p>
+                </div>
+            </div>
+             <!-- The rest will be shown in the modal -->
+        </div>
+        
+        <!-- FIX: Đã sửa 'onclick="openMemberModal()"' thành 'onclick="openMembersModal()"' -->
+        <div class="text-center mt-10">
+            <button onclick="openMembersModal()" class="bg-accent hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition shadow-lg inline-flex items-center gap-2">
+                Xem tất cả thành viên (46) <i data-lucide="users" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Guestbook/Confession -->
+    <section id="guestbook" class="py-20 bg-accent/10">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-8 md:p-12">
+                    <h2 class="font-serif text-3xl font-bold text-gray-900 mb-6 text-center">Lưu Bút & Confession</h2>
+                    
+                    <!-- Form -->
+                    <form class="mb-10" onsubmit="event.preventDefault(); addNote();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input type="text" id="nameInput" placeholder="Tên của bạn (hoặc ẩn danh)" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none">
+                            <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none" id="privacySelect">
+                                <option value="public">Công khai</option>
+                                <option value="anonymous">Ẩn danh</option>
+                            </select>
+                        </div>
+                        <textarea id="msgInput" rows="4" placeholder="Viết vài dòng kỷ niệm, hoặc một lời thú tội chưa từng nói..." class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-accent focus:ring-1 focus:ring-accent outline-none mb-4"></textarea>
+                        <button type="submit" class="w-full bg-accent hover:bg-amber-700 text-white font-bold py-3 rounded-lg transition duration-300">Gửi Lời Nhắn</button>
+                    </form>
+
+                    <!-- Message Board -->
+                    <div class="space-y-6" id="messageBoard">
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                            <p class="text-gray-800 italic mb-2">"Nhớ mãi những buổi trốn học đi ăn chè cô Ba. Yêu lớp mình nhiều lắm!"</p>
+                            <p class="text-xs text-gray-500 font-bold text-right">- Ẩn danh -</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                            <p class="text-gray-800 italic mb-2">"Cảm ơn cô chủ nhiệm vì đã luôn bao che cho tụi em. Chúc cô luôn mạnh khỏe."</p>
+                            <p class="text-xs text-gray-500 font-bold text-right">- Nam "béo" -</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="font-script text-4xl text-accent mb-6">12A1 Memories</h2>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="hover:text-accent transition"><i data-lucide="facebook"></i></a>
+                <a href="#" class="hover:text-accent transition"><i data-lucide="instagram"></i></a>
+                <a href="#" class="hover:text-accent transition"><i data-lucide="mail"></i></a>
+            </div>
+            <p class="text-gray-400 mb-2">Hẹn gặp lại vào ngày họp lớp: 20/11/2025</p>
+            <p class="text-gray-600 text-sm">Thiết kế với tất cả tình yêu dành cho 12A1.</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeImageModal()">
+        <div class="relative max-w-4xl w-full">
+            <button class="absolute -top-12 right-0 text-white hover:text-accent" onclick="closeImageModal()">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <img id="modalImg" src="" alt="Full size" class="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl">
+            <p id="modalCaption" class="text-white text-center mt-4 font-script text-2xl"></p>
+        </div>
+    </div>
+
+    <!-- Members List Modal (New Modal - CẬP NHẬT ĐỂ SỬ DỤNG TRANSITION) -->
+    <div id="membersModal" 
+        class="fixed inset-0 z-50 hidden bg-black/0 transition-opacity duration-300 opacity-0 pointer-events-none flex items-center justify-center p-4" 
+        onclick="closeMembersModal()">
+        
+        <div class="bg-paper rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-all duration-300" 
+             onclick="event.stopPropagation()">
+            <div class="sticky top-0 bg-paper/95 backdrop-blur-sm p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="font-serif text-3xl font-bold text-accent">Danh Sách Thành Viên (46)</h2>
+                <button class="text-gray-600 hover:text-red-500 p-2 rounded-full transition" onclick="closeMembersModal()">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div id="membersListContainer" class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Member cards will be rendered here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Message Box Container -->
+    <div id="message-box-container"></div>
+
+
+    <!-- Scripts -->
+    <script>
+        // Data for all 46 members (for the modal)
+        const allMembers = [
+            { name: "Nguyễn Thành Nam", nickname: "Leo", quote: "Dưới 100%, mọi vấn đề đều là 50/50.", seed: "Felix", color: "bg-blue-100" },
+            { name: "Trần Thị Hà Lan", nickname: "Thủ quỹ khổ nhất 2025", quote: "Còn ai chưa nộp quỹ thì nộp lẹ cho tau vớii.", seed: "Aneka", color: "bg-pink-100" },
+            { name: "Hoàng Trung Phong", nickname: "Thần Gió", quote: "Nét như Sony luôn.", seed: "Jack", color: "bg-green-100" },
+            { name: "Bùi Thục Anh", nickname: "Sô cô la", quote: "Càng sợ sai, càng khó đúng.", seed: "Tami", color: "bg-yellow-100" },
+            { name: "Hoàng Trần Châu Anh", nickname: "Canh", quote: "Không cần nhanh, chỉ cần đừng dừng lại.", seed: "Mai", color: "bg-red-100" },
+            { name: "Lê Quang Anh", nickname: "Lê Quang Tèo", quote: "404 not found", seed: "Huy", color: "bg-indigo-100" },
+            { name: "Hoàng ĐÌnh Gia Bảo", nickname: "Egg", quote: "Không phải quả trứng nào đem luộc cũng ăn được.", seed: "Linh", color: "bg-purple-100" },
+            { name: "Nguyễn Thị Thanh Bình", nickname: "Lớp phó Văn-Thể-Mỹ", quote: "404 not found", seed: "Tuấn", color: "bg-teal-100" },
+            { name: "Trần Ngọc Bảo Châu", nickname: "404 not found", quote: "404 not found", seed: "Yen", color: "bg-orange-100" },
+            { name: "Trần Thị Duyên", nickname: "404 not found", quote: "404 not found", seed: "Duy", color: "bg-cyan-100" },
+            { name: "Nguyễn Đình Minh Đức", nickname: "404 not found", quote: "404 not found", seed: "Oanh", color: "bg-lime-100" },
+            { name: "Đoàn Mạnh Giang", nickname: "net", quote: "Thể thao là không ngừng bỏ cuộc.", seed: "Truong", color: "bg-pink-100" },
+            { name: "Võ Trần Thanh Hải", nickname: "Hải Bình", quote: "Hạnh phúc không đến từ chiến thắng hay thua cuộc, hạnh phúc là một hành trình.", seed: "Phuong", color: "bg-blue-100" },
+            { name: "Đào Thị Thủy Hằng", nickname: "Bặm", quote: "Tự do lớn nhất là được làm chính mình.", seed: "Thinh", color: "bg-green-100" },
+            { name: "Phan Đức Hiếu", nickname: "Hisu", quote: "Cuộc đời đôi khi không hoàn hảo, và không có kem socola.", seed: "Phuc", color: "bg-yellow-100" },
+            { name: "Võ Trực Hoàng", nickname: "404 not found", quote: "404 not found", seed: "Thuy", color: "bg-red-100" },
+            { name: "Trần Thương Huyền", nickname: "Na", quote: "404 not found", seed: "Dat", color: "bg-indigo-100" },
+            { name: "Phạm Tuấn Kiên", nickname: "Dượng đây", quote: "có những ngày tuyệt vọng cùng cực. Tôi và cuộc đời đã tha thứ cho nhau.", seed: "Ngoc", color: "bg-purple-100" },
+            { name: "Nguyễn Đức Anh Kiệt", nickname: "Lu", quote: "Hãy giữ đôi chân ở mặt đất.", seed: "Vinh", color: "bg-teal-100" },
+            { name: "Nguyễn Ngọc Phương Linh", nickname: "Nọng", quote: "Không có thất bại, chỉ có bài học.", seed: "Ho", color: "bg-orange-100" },
+            // Add 20 more placeholder members to reach 40
+            { name: "Nguyễn Ngọc Thảo Linh", nickname: "404 not found", quote: "404 not found", seed: "Tam", "color": "bg-cyan-100" },
+            { name: "Nguyễn Ngô Phượng Linh", nickname: "Mít Ướt", quote: "Tiên học lễ, hậu học văn.", seed: "Chin", color: "bg-lime-100" },
+            { name: "Lê Hoàng Thảo Ly", nickname: "Ly Kudo", quote: "Sự thật chỉ có một.", seed: "Muoi", color: "bg-pink-100" },
+            { name: "Nguyễn Thị Khánh Ly", nickname: "leuoi", quote: "Chuyện tiếc nuối nhất không phải là thất bại, mà là vốn dĩ có thể làm được, lại không chịu cố gắng.", seed: "Kieu", color: "bg-blue-100" },
+            { name: "Nguyễn Hữu Nhật Minh", nickname: "Đội trưởng đội bóng chuyền", quote: "404 not found", seed: "Huong", color: "bg-green-100" },
+            { name: "Trần Lữ Hà My", nickname: "Hmy", quote: "Thất bại là cơ hội để bắt đầu một cách thông minh hơn", seed: "Manh", color: "bg-yellow-100" },
+            { name: "Lê Thảo Ngân", nickname: "Kẻ nắm giữ sổ đầu bài", quote: "404 not found", seed: "Lua", color: "bg-red-100" },
+            { name: "Phạm Thị Khánh Ngọc", nickname: "kah noc", quote: "cá lớn nuốt cá bé.", seed: "Bach", color: "bg-indigo-100" },
+            { name: "Thái Hoàng Bảo Ngọc", nickname: "Học sinh thanh lịch", quote: "404 not found", seed: "Trang", color: "bg-purple-100" },
+            { name: "Trương Hoàng Minh Ngọc", nickname: "Cát Tường", quote: "họa nhiều lên sĩ ít thôi.", seed: "Son", color: "bg-teal-100" },
+            { name: "Lê Trần Khánh Nguyên", nickname: "404 not found", quote: "404 not found", seed: "Chien", color: "bg-orange-100" },
+            { name: "Đoàn Thành Nhân", nickname: "Vẹo", quote: "404 not found", seed: "Hong", color: "bg-cyan-100" },
+            { name: "Đoàn Thị Yến Nhi", nickname: "404 not found", quote: "404 not found", seed: "Tai", color: "bg-lime-100" },
+            { name: "Nguyễn Thảo Nhi", nickname: "404 not found", quote: "404 not found", seed: "Le", color: "bg-pink-100" },
+            { name: "Võ Thành Phát", nickname: "Fat", quote: "Trẻ con cũng như đồ điện tử cũ vậy, phải đập thì mới chịu hoạt động tốt.", seed: "Hieu", color: "bg-blue-100" },
+            { name: "Lê Bá Phúc", nickname: "Lê", quote: "Làm thì ít, đớp thì nhiều.", seed: "Minh", color: "bg-green-100" },
+            { name: "Trần Văn Phúc", nickname: "Già Trần", quote: "Mùa nào cũng đẹp.", seed: "Thu", color: "bg-yellow-100" },
+            { name: "Phạm Hoàng Như Quỳnh", nickname: "Nquin", quote: "Cái gì không làm được thì vừa khóc vừa làm.", seed: "Cuong", color: "bg-red-100" },
+            { name: "Phan Ngọc Thạch", nickname: "Slamponts", quote: "Thất bại trong chuẩn bị là chuẩn bị cho thất bại.", seed: "Tram", color: "bg-indigo-100" },
+            { name: "Phan Quang Thành", nickname: "Liêm", quote: "Nếu cuộc đời ném vào mặt bạn một quả chanh, hãy vắt nước chanh vì nước chanh rất ngon.", seed: "Long", color: "bg-purple-100" },
+            { name: "Tạ Đình Thành", nickname: "Tạ", quote: "Chưa có", Seed: "Son", color: "bg-indigo-100" }, 
+            { name: "Trần Văn Thịnh", nickname: "Thế Thịnh", quote: "Miễn là chúng ta không bao giờ từ bỏ,vũ trụ sẽ luôn lắng nghe tiếng của những trái tim kiên cường", Seed: "Son", color: "bg-indigo-100" },
+            { name: "Lê Nguyễn Cát Tiên", nickname: "Cà Lem", quote: "Đừng sợ mắc sai lầm, hãy sợ khi không học được gì từ sai lầm đó.", Seed: "Son", color: "bg-indigo-100" },
+            { name: "Phan Thủy Tiên", nickname: "404 not found", quote: "Chưa có", Seed: "Son", color: "bg-indigo-100" },
+            { name: "Phan Thị Ánh Tuyết", nickname: "tuiets", quote: "#", Seed: "Son", color: "bg-indigo-100" },
+            { name: "Lê Chí Vỹ", nickname: "404 not found", quote: "Chưa có", Seed: "Son", color: "bg-indigo-100" },
+        ];
+
+        // Initialize Icons
+        lucide.createIcons();
+        
+        // ---------------------------------
+        // NAVIGATION (Mobile Menu)
+        // ---------------------------------
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('i').setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // ---------------------------------
+        // MODAL FUNCTIONS (Image Gallery)
+        // ---------------------------------
+        function openImageModal(imgSrc, captionText) {
+            const modal = document.getElementById('imageModal');
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalCaption').textContent = captionText;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ---------------------------------
+        // MODAL FUNCTIONS (Members List) - CẬP NHẬT LOGIC FIX LỖI ẨN
+        // ---------------------------------
+
+        // Function to create an HTML string for a single member card
+        function createMemberCard(member) {
+            return `
+                <div class="bg-white rounded-xl shadow-lg p-6 flex items-start space-x-4 memory-card border border-gray-100 ${member.color}">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${member.seed}" alt="${member.name} Avatar" class="w-16 h-16 rounded-full bg-white p-1 flex-shrink-0 border border-gray-200">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-lg text-gray-900">${member.name}</h3>
+                        <span class="text-accent text-sm font-medium block mt-[-2px]">"${member.nickname}"</span>
+                        <p class="text-gray-500 text-xs italic mt-2">"${member.quote}"</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderAllMembers() {
+            const container = document.getElementById('membersListContainer');
+            // Clear existing content just in case
+            container.innerHTML = ''; 
+
+            const membersHtml = allMembers.map(createMemberCard).join('');
+            container.innerHTML = membersHtml;
+        }
+
+        // SỬA LỖI: Dùng logic transition để mở Modal mượt mà hơn và tránh bị ẩn
+        function openMembersModal() { 
+            console.log("Attempting to open Members Modal..."); // Debug log
+            renderAllMembers();
+            const modal = document.getElementById('membersModal');
+            const modalContent = modal.querySelector('div:not([onclick="closeMembersModal()"])'); // Lấy nội dung bên trong
+
+            // 1. Gỡ lớp 'hidden' để Modal tồn tại trong DOM
+            modal.classList.remove('hidden');
+
+            // 2. Dùng setTimeout để đảm bảo trình duyệt đã vẽ lại (reflow) sau khi gỡ 'hidden'
+            // Sau đó mới áp dụng hiệu ứng opacity và scale (hiển thị mượt mà)
+            setTimeout(() => {
+                // Background opacity and pointer events
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100', 'pointer-events-auto', 'bg-black/80');
+
+                // Content scale and transition
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            console.log("Members Modal: Opacity/Scale applied.");
+        }
+
+        function closeMembersModal() {
+            console.log("Attempting to close Members Modal..."); // Debug log
+            const modal = document.getElementById('membersModal');
+            const modalContent = modal.querySelector('div:not([onclick="closeMembersModal()"])');
+
+            // 1. Áp dụng hiệu ứng ngược lại (ẩn mờ và thu nhỏ)
+            modal.classList.remove('opacity-100', 'bg-black/80');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+
+            // 2. Dùng setTimeout để gán lớp 'hidden' và khôi phục scroll sau khi transition kết thúc (300ms)
+            setTimeout(() => {
+                modal.classList.add('hidden', 'pointer-events-none');
+                document.body.style.overflow = 'auto';
+                console.log("Members Modal closed completely.");
+            }, 300);
+        }
+
+
+        // ---------------------------------
+        // GUESTBOOK / NOTES (Static Example)
+        // ---------------------------------
+        const messageBoard = document.getElementById('messageBoard');
+        
+        function addNote() {
+            const name = document.getElementById('nameInput').value || "Ẩn danh";
+            const message = document.getElementById('msgInput').value;
+            const privacy = document.getElementById('privacySelect').value;
+            
+            const finalName = (privacy === 'anonymous') ? 'Ẩn danh' : (name || 'Bạn học');
+
+            if (!message.trim()) {
+                showMessageBox("Vui lòng nhập nội dung lời nhắn.", 'error');
+                return;
+            }
+
+            // Create new note HTML element
+            const newNote = document.createElement('div');
+            const noteColor = privacy === 'anonymous' ? 'bg-yellow-50 border-yellow-400' : 'bg-blue-50 border-blue-400';
+            
+            newNote.className = `${noteColor} p-4 rounded-lg border-l-4 opacity-0 transition-opacity duration-500`;
+            newNote.innerHTML = `
+                <p class="text-gray-800 italic mb-2">"${message}"</p>
+                <p class="text-xs text-gray-500 font-bold text-right">- ${finalName} -</p>
+            `;
+            
+            // Add new note to the top of the board
+            messageBoard.prepend(newNote);
+
+            // Animate in
+            setTimeout(() => {
+                newNote.classList.remove('opacity-0');
+            }, 50);
+
+            // Clear inputs
+            document.getElementById('nameInput').value = '';
+            document.getElementById('msgInput').value = '';
+            document.getElementById('privacySelect').value = 'public';
+
+            showMessageBox("Lời nhắn của bạn đã được gửi thành công!", 'success');
+        }
+
+        // Custom Message Box (instead of alert())
+        function showMessageBox(message, type = 'info') {
+            const container = document.getElementById('message-box-container');
+            
+            // Remove any existing message boxes
+            container.innerHTML = ''; 
+
+            const msgBox = document.createElement('div');
+            let bgColor, borderColor;
+
+            if (type === 'success') {
+                bgColor = 'bg-green-500';
+                borderColor = 'border-green-700';
+            } else { // error or info
+                bgColor = 'bg-red-500';
+                borderColor = 'border-red-700';
+            }
+            
+            // FIXED: Đảm bảo nội dung được thêm vào và box được định hình
+            msgBox.className = `fixed bottom-5 right-5 z-50 p-4 text-white font-semibold rounded-lg shadow-xl transition-opacity duration-300 opacity-0 ${bgColor} border-b-4 ${borderColor}`;
+            msgBox.textContent = message; 
+            
+            container.appendChild(msgBox);
+            
+            // Animate in
+            setTimeout(() => {
+                msgBox.classList.remove('opacity-0');
+            }, 50);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                msgBox.classList.add('opacity-0');
+                setTimeout(() => {
+                    if (container.contains(msgBox)) {
+                         container.removeChild(msgBox);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Add custom fade-in animation
+        document.head.insertAdjacentHTML("beforeend", `<style>
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 1s ease-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.5s ease-out forwards;
+            }
+        </style>`);
+
+
+        // Initial setup for preview cards (already in HTML, but ensures data match)
+        document.addEventListener('DOMContentLoaded', () => {
+            // We ensure the static cards on the main page reflect the first 3 members in allMembers
+            const previewCards = document.querySelectorAll('#members > div.grid > div.memory-card');
+            [...previewCards].forEach((card, index) => {
+                const member = allMembers[index];
+                if (member) {
+                    card.querySelector('h3').textContent = member.name;
+                    card.querySelector('span').textContent = `"${member.nickname}"`;
+                    card.querySelector('p').textContent = `"${member.quote}"`;
+                    
+                    const imgElement = card.querySelector('img');
+                    imgElement.src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.seed}`;
+                    
+                    // Update background color classes dynamically
+                    const colorClasses = ['bg-blue-100', 'bg-pink-100', 'bg-green-100', 'bg-yellow-100', 'bg-red-100', 'bg-indigo-100', 'bg-purple-100', 'bg-teal-100', 'bg-orange-100', 'bg-cyan-100', 'bg-lime-100'];
+                    colorClasses.forEach(cls => {
+                        // FIX: Thêm tiền tố 'bg-' khi gỡ class
+                        cls.split(' ').forEach(c => card.classList.remove(c));
+                    });
+                    // FIX: Đảm bảo class màu nền (member.color) được thêm vào đúng chỗ
+                    card.classList.add(member.color); 
+                }
+            });
+            // Re-render icons after DOM content is loaded
+            lucide.createIcons();
+        });
+        
+    </script>
+</body>
+</html>
