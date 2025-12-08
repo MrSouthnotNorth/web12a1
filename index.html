@@ -150,6 +150,16 @@
             z-index: 100;
         }
         
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #d97706; /* accent color */
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.5s ease-out;
+        }
     </style>
 </head>
 <body class="bg-paper font-body text-gray-800 antialiased">
@@ -197,7 +207,7 @@
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0">
             <!-- Used unsplash image with fallbacks/placeholders -->
-            <img src="..\web 12a1\images\anh nen.JPG" 
+            <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/597231610_1555919968987717_8117324299716487127_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGqD0bzBTtcmahjs1ymdwfD3eiKJcRVLaLd6IolxFUtouFE0_-ojYiHdRRw-UAioKdZfVbpyXr6Nuk9liZu9WjD&_nc_ohc=lb93ZEtR5C4Q7kNvwHsK8Er&_nc_oc=Adm3lBJWAzqZSnKH3gBYBC7E07OCqta6YHL_WLeZEfR2h-sYoBEVrEZNG9Dz5PeL5alSdSFdQemUNmoyV32o_Ytt&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AFYdjGI26eNsaAQrbZ5XcgZJLttvvKft9ZWzilqn-DN-Q&oe=695DC480" 
                  onerror="this.onerror=null;this.src='https://placehold.co/1950x1080/4A235A/FFFFFF?text=KY+YEU+12A1'"
                  alt="Class Photo" 
                  class="w-full h-full object-cover">
@@ -226,7 +236,7 @@
         </div>
 
         <!-- timeline-line class for the vertical line -->
-        <div class="relative timeline-line space-y-12 md:space-y-0">
+        <div id="timeline-container" class="relative timeline-line space-y-12 md:space-y-0">
             
             <!-- Event 1: Ngày Tựu Trường (Content Right, Image Left) -->
             <div class="timeline-event-wrapper md:flex md:items-center md:justify-between md:odd:flex-row-reverse group mb-8 md:mb-12">
@@ -235,7 +245,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\tuu truong.jpg" alt="Ảnh Tựu Trường" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/594272395_805617022506811_808205627673656311_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFVsbbTMY5nGvGqShhG8wwt7UCiUxNFIq3tQKJTE0UirZDpaxIq1UJnYJlDWS-Brr3aqBlY1s53SRyPmpwzN0Xt&_nc_ohc=n_LwEiuOPoUQ7kNvwGvsfIh&_nc_oc=AdlYsT64K1WVGeqL7V5t_kfFINlv-5QdX_OCVp47G9Rx4OwsPlX3JjKHJJpZjBoRp_lZPbydi6LhtLYHgxSZ5WQC&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AHl4vQ98hoo-yoQ3cjJi78Nmt2TOOPfE3TX7GYhnGxiQg&oe=695DBA9D" alt="Ảnh Tựu Trường" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -260,7 +270,7 @@
 
                 <!-- IMAGE BLOCK (Right on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\50 nam.jpg" alt="Ảnh 50 năm" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/597553182_1806625900130636_3581239536879671339_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE7QZm2SmRQ-UVzBxDg5meiw1pvwypLCKrDWm_DKksIqo2PrvUnJfhwM38B4xX_l_s0f5EYvPOcJvBTyR3Fqlr3&_nc_ohc=vUeT5FMbm80Q7kNvwEm4JQa&_nc_oc=Adk29QSuPd7yaiGtuM0swHdOFQo0Rvu1Q2bt9g1C_A3_OXDgA1guF2JGyLenwRAbu6iWabeOPunQXP_h9_QIKPWe&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&oh=03_Q7cD4AGNhR16aPuk8GBPL5CckDecCYUEdu11dAj4AoqTvg59QA&oe=695DCFB4" alt="Ảnh 50 năm" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
             </div>
             
@@ -271,7 +281,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\h3t m4.JPG" alt="Ảnh Kiệt" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/597679413_3416402008500548_1806018625482333607_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHk4p51voBPxCLLCrJf7FJWCT5Vwhtrg_wJPlXCG2uD_PDCoPhIVje3oGI23JX8oNJAz3fP6phU-C551iWTbXbf&_nc_ohc=XoE-Fe3dp8wQ7kNvwH9OjH_&_nc_oc=AdkrVbPhor0MASD5Nm5DouzwRPc4x2xLYDVFTeS0VS4f1_YcA7hhqDLHrOyuyTBlKAIgkt30iETrA_Iqx5DkDQQD&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AFw7He_dx1qlDJMiPk7RIhsjgdKhPL-5q237RKZVe0dig&oe=695DDB9D" alt="Ảnh Kiệt" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -296,7 +306,7 @@
 
                 <!-- IMAGE BLOCK (Right on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\xuantraoyeuthuong.jpg" alt="Ảnh Xuân trao yêu thương" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/590208587_1194649342806421_4188834130128100807_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEfxmvi1niNqGnUo4pAzI5gfVt18zdmv_99W3XzN2a___dc2pJ2SoiV-Tn3FdSdFt8D2XRp7m2v2Bmqtt89H9Gf&_nc_ohc=sx9r9pKeG7cQ7kNvwEB-qDb&_nc_oc=AdkrFg1PNiMM60jLMasa9MUlnuKypkaPEF6q9J9dyzrsZLODnOi8NxVvQuYuETCuM2ZTU5n3scS5AHQ8g-HKDGAf&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AGxd3mYt9gXl4mHCzdww-jxqb_pKCgYyV2YwwrsQRKWMA&oe=695DD01F" alt="Ảnh Xuân trao yêu thương" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
             </div>
 
@@ -307,7 +317,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\cp.JPG" alt="Ảnh Chinh Phục" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/592243140_1426795348844211_2444126835137624106_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeElT0wOzATOXNVSY52hZwppTg1ZohyRrJZODVmiHJGslqDDMB4gnYs285GEFgB-00rc1iA48iqAdFGxgTLSK-MF&_nc_ohc=CMsyDfvXSgQQ7kNvwHxKCte&_nc_oc=AdmXby6iefXxv9pXrjsHnd0cUFPWeenKhg-qODn0gSFhq6sgiEu4Icvb3QO8VSXL6hqIIbHXWMk9OQSUNjTmcgTp&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AEU8E6KjoPZWoRm9RCNbdmITtuuB32I5TqjgQwd6Sqs0g&oe=695DE0FB" alt="Ảnh Chinh Phục" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -325,7 +335,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\dulich.JPG" alt="Ảnh Du lịch" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/591944067_1628440615131968_6193726986090818706_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeExSiJLbcj94Pff0PVPagNGIuIT5_dIIuAi4hPn90gi4OfUJV799fcCFZBC-n1clYr8QW0rLymb2eP-Bjtj2EkB&_nc_ohc=IA-t2kLVY3oQ7kNvwGVfsWT&_nc_oc=AdkK86Dy_ygujzR9Vbz4BKGfGcGLZvtJ0OJxvizo5ieMiz-2MPmmzfOPZxG34Ikx9lv5OOrf9mR1hgTi0KVxZ4LA&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AEtzHW2NelcGHgTznyQVNLAZ594R44c5nxBfDlK-y371A&oe=695DCED1" alt="Ảnh Du lịch" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -343,7 +353,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\20thang10.jpg" alt="Ảnh 20/10" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597319619_2283911495454534_831984255888350457_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeH2JPBUb9Q854GL-kJbX_32VsShckDmP9dWxKFyQOY_11IWwjH4wzfFYC2OyExrjd06_9qUmdffu-BYV-f5R7SN&_nc_ohc=BUxmCJ6gzT4Q7kNvwGrOjE4&_nc_oc=AdlaYnzdLYdt06HYCJwWBHeBUbznb5Q3HpXAemgKg6qyeBNiYAp3URxOOK8typriNf05n1z7_BUMxMECxKBS6lL6&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AEMdlKJGrFdqn_EnU1PYX4kSwDCB82x5M9NkgP6TFoopA&oe=695DBA6E" alt="Ảnh 20/10" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -361,7 +371,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\19thang11.JPG" alt="Ảnh 19/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad1-1.fna.fbcdn.net/v/t1.15752-9/597164331_1422529376251188_6241790335557378649_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFj92hSMIgjj0yNbAn33ux9WiC7mUWxQoxaILuZRbFCjAEf7DKdCyAPAKcMoyvg_n3Z07rnryVBkQoqDUEVrWi4&_nc_ohc=pf6OI5pK2SoQ7kNvwFbJeh_&_nc_oc=AdlVwOlLPuuicLdkdA2YOUzXFnK-SbMcoms1GOuC_TmE705vtovSP4Mt_O6w5qnyYOA3JyhfF_0jHt-eUK67kOyv&_nc_zt=23&_nc_ht=scontent.fdad1-1.fna&oh=03_Q7cD4AGOZetpHUdcanlAeEeFZuMbc7vCkl86mPeY2Onloi3rrA&oe=695DC0E8" alt="Ảnh 19/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -379,7 +389,7 @@
                 
                 <!-- IMAGE BLOCK (Left on desktop, hidden on mobile) -->
                 <div class="md:w-5/12 p-4 hidden md:block">
-                    <img src="..\web 12a1\images\20thang11.jpg" alt="Ảnh 20/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                    <img src="https://scontent.fdad1-2.fna.fbcdn.net/v/t1.15752-9/592572661_843917815004510_3575380421193163960_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeELcbkHIwUXY1PChXdrG9hrj-DSycIJammP4NLJwglqaTSYMEDvO9-lvigkl4tufiYljP4kTVnWG84ZyB6-Qt3O&_nc_ohc=3X1R_0A_XacQ7kNvwF9VZ8W&_nc_oc=AdmRn2HYKp7C9A3FW2m_JTGoqzJDyP4UJ8rQ3xrYa5xfEpraRZqESKR_cC5y-wvRk3i-SbPuB0eS3SxD08JmaFB9&_nc_zt=23&_nc_ht=scontent.fdad1-2.fna&oh=03_Q7cD4AEkpfPerZvOB7DqJodi7F28n0s2mTCMI4ro1KFCX2HLNg&oe=695DC4BD" alt="Ảnh 20/11" class="w-full h-48 object-cover rounded-lg shadow-xl border-4 border-white transition duration-300 hover:shadow-2xl hover:scale-[1.02]">
                 </div>
 
                 <!-- CONTENT BLOCK (Right on desktop, full width/indented on mobile) -->
@@ -402,55 +412,62 @@
                 <p class="text-gray-600">Click vào ảnh để xem chi tiết nhé!</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Image 1 -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\kich than chet.JPG', 'Ngây ngô nhưng cũng rất sâu sắc')">
-                    <img src="..\web 12a1\images\kich than chet.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597724811_1485627692541614_6238872156939961554_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeF5a6G3XdPSAEEGK9TlXoOMlqiY7GW9r8yWqJjsZb2vzG5F_k1rezEMQrmbz_usvXQD4NM25XeryusUbGwY_BwB&_nc_ohc=HByDhhCmo7UQ7kNvwE6ME3l&_nc_oc=Adn_6-_b43wHl-pF14TZSw4W9AK19dfk03beHWZFUO2oz1LaMEYWbE8Zv1WMjhP1qhZ1O61vdmrTqb4s9fLulWaL&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AGyHWDnV1eQVx_-5aq4_jQlJ3pRdQGv_ovrTt5fhcQ-Pg&oe=695DE310', 'Ngây ngô nhưng cũng rất sâu sắc')">
+                    <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597724811_1485627692541614_6238872156939961554_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeF5a6G3XdPSAEEGK9TlXoOMlqiY7GW9r8yWqJjsZb2vzG5F_k1rezEMQrmbz_usvXQD4NM25XeryusUbGwY_BwB&_nc_ohc=HByDhhCmo7UQ7kNvwE6ME3l&_nc_oc=Adn_6-_b43wHl-pF14TZSw4W9AK19dfk03beHWZFUO2oz1LaMEYWbE8Zv1WMjhP1qhZ1O61vdmrTqb4s9fLulWaL&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AGyHWDnV1eQVx_-5aq4_jQlJ3pRdQGv_ovrTt5fhcQ-Pg&oe=695DE310" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Những vở kịch</div>
                 </div>
 
                 <!-- Image 2 -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\co linh va co ly.JPG', 'Những kỳ thực tập đáng nhớ')">
-                    <img src="..\web 12a1\images\co linh va co ly.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597481321_1583091472699760_2258843451132227455_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeG5MDt6N9efGnuikra3WFp1eaRsYt1J4v55pGxi3Uni_nFrlqQhp4WlD-OMmGsOrJ6mnqr0Iq90TXkLRYr7X0Eo&_nc_ohc=Onw5S_-MKbcQ7kNvwEKXc7Q&_nc_oc=Adm1MAo18Fyh8W10AhnQpK8iYwDIcboyZAaW076gWPa1YaQEOz6NprmvvPevs2xN0oBdLIXRnoWokuycCj6tMTye&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AFSFogWGYo3Y-_ePLaLqnEmmLi85crMbV9Lbrz0GxgpAA&oe=695DCB4F', 'Những kỳ thực tập đáng nhớ')">
+                    <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597481321_1583091472699760_2258843451132227455_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeG5MDt6N9efGnuikra3WFp1eaRsYt1J4v55pGxi3Uni_nFrlqQhp4WlD-OMmGsOrJ6mnqr0Iq90TXkLRYr7X0Eo&_nc_ohc=Onw5S_-MKbcQ7kNvwEKXc7Q&_nc_oc=Adm1MAo18Fyh8W10AhnQpK8iYwDIcboyZAaW076gWPa1YaQEOz6NprmvvPevs2xN0oBdLIXRnoWokuycCj6tMTye&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AFSFogWGYo3Y-_ePLaLqnEmmLi85crMbV9Lbrz0GxgpAA&oe=695DCB4F" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Những "chị" giáo đáng yêu</div>
                 </div>
 
                  <!-- Image 3 -->
-                 <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\anh chill 2.JPG', 'Áo dài trắng')">
-                    <img src="..\web 12a1\images\anh chill 2.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                 <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/597791062_1255376716430970_822770446398813937_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHtTo1LzKaQ2_8oBM97GnulzrWMBSPPqjLOtYwFI8-qMkPahsPsffCdbtkDlbpFGf5s3K3Qdfn-TxFQqJ4u0Kpz&_nc_ohc=xz_lzDePsHgQ7kNvwHC6GXC&_nc_oc=Adl_v5ttcsb8B6eIzByFzfAYms2lcwVYqX_FCNmhYsrtwRhwYkV1zWo806TlvkMOZOgapeRORvnejbYX9ojbrjLX&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AH-AcCw8CJoRVU0NiCni5WXuzonzXVsMYeUbTIPsN7fAg&oe=695DE5CD', 'Áo dài trắng')">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/597791062_1255376716430970_822770446398813937_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHtTo1LzKaQ2_8oBM97GnulzrWMBSPPqjLOtYwFI8-qMkPahsPsffCdbtkDlbpFGf5s3K3Qdfn-TxFQqJ4u0Kpz&_nc_ohc=xz_lzDePsHgQ7kNvwHC6GXC&_nc_oc=Adl_v5ttcsb8B6eIzByFzfAYms2lcwVYqX_FCNmhYsrtwRhwYkV1zWo806TlvkMOZOgapeRORvnejbYX9ojbrjLX&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AH-AcCw8CJoRVU0NiCni5WXuzonzXVsMYeUbTIPsN7fAg&oe=695DE5CD" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Nắng sân trường</div>
                 </div>
 
                 <!-- Image 4 -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\truoc dulich.JPG', 'Bình yên trước cơn bão')">
-                    <img src="..\web 12a1\images\truoc dulich.JPG" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-2.fna.fbcdn.net/v/t1.15752-9/591934566_869781255997702_6780448654793379412_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE2aV1mk_csTxD3z_EDXZRs3RuZELA24kTdG5kQsDbiRFOUNN_n7KO_zpGiSQsdw2JFq7bd18MP4hQgB9ol_BPD&_nc_ohc=Ihf74imGujAQ7kNvwEn3pMd&_nc_oc=AdlX1IaKysKHRCpRjkgGmHFoc-zMkwzu4x0x3S4mCPcKM4VTmm0I3g8nrawu_h9Wddf-T2b9M115uoCesuxvTOgn&_nc_zt=23&_nc_ht=scontent.fdad1-2.fna&oh=03_Q7cD4AHPdC71Tc4bIf7GepRcSynqJ2mXC2yMe9_XaNC-kdj_RA&oe=695DBEFD', 'Bình yên trước cơn bão')">
+                    <img src="https://scontent.fdad1-2.fna.fbcdn.net/v/t1.15752-9/591934566_869781255997702_6780448654793379412_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE2aV1mk_csTxD3z_EDXZRs3RuZELA24kTdG5kQsDbiRFOUNN_n7KO_zpGiSQsdw2JFq7bd18MP4hQgB9ol_BPD&_nc_ohc=Ihf74imGujAQ7kNvwEn3pMd&_nc_oc=AdlX1IaKysKHRCpRjkgGmHFoc-zMkwzu4x0x3S4mCPcKM4VTmm0I3g8nrawu_h9Wddf-T2b9M115uoCesuxvTOgn&_nc_zt=23&_nc_ht=scontent.fdad1-2.fna&oh=03_Q7cD4AHPdC71Tc4bIf7GepRcSynqJ2mXC2yMe9_XaNC-kdj_RA&oe=695DBEFD" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Vẫn là chuyến du lịch đó</div>
                 </div>
 
                 <!-- Image 5 (NEW) -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\bimatduoigoccay.jpg', 'Đến giờ vẫn không biết thầy Hoàn đã giấu thứ gì?')">
-                    <img src="..\web 12a1\images\bimatduoigoccay.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597223160_737855558745723_6739624409928077690_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEIpjAjoiiWK85x5PILzGCNCoF836B4C_AKgXzfoHgL8D8Da_NIVYjpHwFB-uNXPnVsjJv_gaXJQfEp1l99r7Wi&_nc_ohc=3kDPKpoaBeIQ7kNvwFwIjM5&_nc_oc=Adknlv0y0FlQLe8_f6gM1xg7Ef_Oj995sFFsVGZQx1hADBmQYmlfoR3fPWnllEx7PdiwirnU2iouEZJgjxom4tVb&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AFeg6VPsYj_zesYkYgbUMifAztlYnVHsVpOvpi8xicDog&oe=695DC9BC', 'Đến giờ vẫn không biết thầy Hoàn đã giấu thứ gì?')">
+                    <img src="https://scontent.fdad1-3.fna.fbcdn.net/v/t1.15752-9/597223160_737855558745723_6739624409928077690_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEIpjAjoiiWK85x5PILzGCNCoF836B4C_AKgXzfoHgL8D8Da_NIVYjpHwFB-uNXPnVsjJv_gaXJQfEp1l99r7Wi&_nc_ohc=3kDPKpoaBeIQ7kNvwFwIjM5&_nc_oc=Adknlv0y0FlQLe8_f6gM1xg7Ef_Oj995sFFsVGZQx1hADBmQYmlfoR3fPWnllEx7PdiwirnU2iouEZJgjxom4tVb&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&oh=03_Q7cD4AFeg6VPsYj_zesYkYgbUMifAztlYnVHsVpOvpi8xicDog&oe=695DC9BC" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Bí mật dưới gốc cây</div>
                 </div>
 
                 <!-- Image 6 (NEW) -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\lambanh.jpg', 'Bánh ngon vậy mà không có giải. Tiếc ghê!')">
-                    <img src="..\web 12a1\images\lambanh.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-1.fna.fbcdn.net/v/t1.15752-9/592369513_855594717054936_577794237543841918_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEzRhWFV0dWnMSSIa3J-m8TT-5xTIcivAlP7nFMhyK8CedPWQIN--OZoVYzj3TAuLurIS7qwDilSL8NmxqUCDpG&_nc_ohc=171pzIWl5dwQ7kNvwG67W1p&_nc_oc=AdkewB0AGWwZO26NMRwAKvhiQaY3e3j6DFSRKQFDm10Ridh0mdW37QnNZlvYQ-63Rge8SGxOaoXDEP5XDAjx44Os&_nc_zt=23&_nc_ht=scontent.fdad1-1.fna&oh=03_Q7cD4AEuTIj-Fw8LALgJC1a0sG4lzMKBwCmVuEl0j89iXZV2BQ&oe=695DB7CE', 'Bánh ngon vậy mà không có giải. Tiếc ghê!')">
+                    <img src="https://scontent.fdad1-1.fna.fbcdn.net/v/t1.15752-9/592369513_855594717054936_577794237543841918_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEzRhWFV0dWnMSSIa3J-m8TT-5xTIcivAlP7nFMhyK8CedPWQIN--OZoVYzj3TAuLurIS7qwDilSL8NmxqUCDpG&_nc_ohc=171pzIWl5dwQ7kNvwG67W1p&_nc_oc=AdkewB0AGWwZO26NMRwAKvhiQaY3e3j6DFSRKQFDm10Ridh0mdW37QnNZlvYQ-63Rge8SGxOaoXDEP5XDAjx44Os&_nc_zt=23&_nc_ht=scontent.fdad1-1.fna&oh=03_Q7cD4AEuTIj-Fw8LALgJC1a0sG4lzMKBwCmVuEl0j89iXZV2BQ&oe=695DB7CE" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Cuộc thi làm bánh</div>
                 </div>
 
                 <!-- Image 7 (NEW) -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\bongchuyen.jpg', '12A1 vô địch!!')">
-                    <img src="..\web 12a1\images\bongchuyen.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/592522225_3290689044422018_7526954813039385529_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEnqCVWB2GC0hlp8ZuQqzTZ7iAWTCvKED_uIBZMK8oQP_huKU7ujNgLRUzHxZis39OJkXryo6SoGdaN5psroC0d&_nc_ohc=hW6jheAmYfgQ7kNvwHyk_u9&_nc_oc=Adn6LMnPQGACXivLS0gx1skgRUxUkcfErYmQysQF-sdTuMCXIk656AbyGXE0kQgE9cP4dJBd0sxj8jwTjaKIoNnm&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&oh=03_Q7cD4AGM65Mb24VO6UrKZFGZHAE0-1vR716fn4-ONv7UbGgtww&oe=695DB698', '12A1 vô địch!!')">
+                    <img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t1.15752-9/592522225_3290689044422018_7526954813039385529_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEnqCVWB2GC0hlp8ZuQqzTZ7iAWTCvKED_uIBZMK8oQP_huKU7ujNgLRUzHxZis39OJkXryo6SoGdaN5psroC0d&_nc_ohc=hW6jheAmYfgQ7kNvwHyk_u9&_nc_oc=Adn6LMnPQGACXivLS0gx1skgRUxUkcfErYmQysQF-sdTuMCXIk656AbyGXE0kQgE9cP4dJBd0sxj8jwTjaKIoNnm&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&oh=03_Q7cD4AGM65Mb24VO6UrKZFGZHAE0-1vR716fn4-ONv7UbGgtww&oe=695DB698" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Vô địch giải bóng chuyền của khối</div>
                 </div>
 
                 <!-- Image 8 (NEW) -->
-                <div class="polaroid cursor-pointer" onclick="openImageModal('..\web 12a1\images\tiec.jpg', 'Mong có thêm nhiều dịp như này nữa')">
-                    <img src="..\web 12a1\images\tiec.jpg" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
+                <div class="polaroid cursor-pointer" onclick="openImageModal('https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/590239652_3298244597000311_3934986559181192742_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_aid=0&_nc_eui2=AeFrcXiICGb56iAPtAbfnzEEKRRynGk0FLEpFHKcaTQUsf3RhE5SrLarVOGtMHhmY8WJctt99eoMr1u5CIAcCP2a&_nc_ohc=K1tiAV5xISkQ7kNvwFmYVvd&_nc_oc=AdkLZrq5vlY_KXxKaGWFg89-7MGCDT6oLocgTfQk-xdC4rfuKdjXiQZ2L5p2z3YXyRzCdquZEc3ipacsvP-A5g-i&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AHLpOPNchYTM_M23IbJtwxntUKMjP93ncHhkd-pYqJgXg&oe=695DD00F', 'Mong có thêm nhiều dịp như này nữa')">
+                    <img src="https://scontent.fdad2-1.fna.fbcdn.net/v/t1.15752-9/590239652_3298244597000311_3934986559181192742_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_aid=0&_nc_eui2=AeFrcXiICGb56iAPtAbfnzEEKRRynGk0FLEpFHKcaTQUsf3RhE5SrLarVOGtMHhmY8WJctt99eoMr1u5CIAcCP2a&_nc_ohc=K1tiAV5xISkQ7kNvwFmYVvd&_nc_oc=AdkLZrq5vlY_KXxKaGWFg89-7MGCDT6oLocgTfQk-xdC4rfuKdjXiQZ2L5p2z3YXyRzCdquZEc3ipacsvP-A5g-i&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&oh=03_Q7cD4AHLpOPNchYTM_M23IbJtwxntUKMjP93ncHhkd-pYqJgXg&oe=695DD00F" class="w-full h-64 object-cover filter sepia-[.3]" alt="Memory">
                     <div class="text-center mt-3 font-script text-xl text-gray-700">Những bữa tiệc</div>
                 </div>
-                
+
+                <!-- Image 9 (NEW) -->
+                <div class="polaroid cursor-pointer" onclick="openVideoModal('images/2010.mp4', 'Hẹn gặp lại tương lai sau này')">
+                    <!-- FIX: Use an image as a placeholder/thumbnail for the video -->
+                    <img src="https://scontent.fdad1-2.fna.fbcdn.net/v/t1.15752-9/593262506_903288798887943_711314701941071943_n.png?_nc_cat=102&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGUMWHJghEk3O9wTmf9imnMBKfiROgT3wwEp-JE6BPfDHFtOkzgZL0Am535mc_QjBXpnHVEP5TgYUhY0hM0wBRP&_nc_ohc=G1ZiIAcFXJoQ7kNvwFJv0s1&_nc_oc=Adk2O_gipgAYem3SiojzDL705ejXg0Q52qfwEoQMfTFoSZQ4r9hKyjzgOSSy5TN2ojphgvXtAXMhjvnZ_AvnNLkr&_nc_zt=23&_nc_ht=scontent.fdad1-2.fna&oh=03_Q7cD4AF26VDPmvDA0_hQc3nyQJgnaekC4z5EFlohXj0DbOhctg&oe=695DE017" class="w-full h-64 object-cover filter sepia-[.3]" alt="Video Thumbnail 20/10">
+                    <div class="text-center mt-3 font-script text-xl text-gray-700">20/10 hôm ấy</div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -526,12 +543,12 @@
                     <!-- Message Board -->
                     <div class="space-y-6" id="messageBoard">
                         <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
-                            <p class="text-gray-800 italic mb-2">"Nhớ mãi những buổi trốn học đi ăn chè cô Ba. Yêu lớp mình nhiều lắm!"</p>
+                            <p class="text-gray-800 italic mb-2">"Nhớ mãi những buổi trốn học đi ăn mì Lạng Sơn. Yêu lớp mình nhiều lắm!"</p>
                             <p class="text-xs text-gray-500 font-bold text-right">- Ẩn danh -</p>
                         </div>
                         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                             <p class="text-gray-800 italic mb-2">"Cảm ơn cô chủ nhiệm vì đã luôn bao che cho tụi em. Chúc cô luôn mạnh khỏe."</p>
-                            <p class="text-xs text-gray-500 font-bold text-right">- Nam "béo" -</p>
+                            <p class="text-xs text-gray-500 font-bold text-right">- Nam lớp trửn -</p>
                         </div>
                     </div>
                 </div>
@@ -548,10 +565,17 @@
                 <a href="#" class="hover:text-accent transition"><i data-lucide="instagram"></i></a>
                 <a href="#" class="hover:text-accent transition"><i data-lucide="mail"></i></a>
             </div>
-            <p class="text-gray-400 mb-2">Hẹn gặp lại vào ngày họp lớp: 20/11/2025</p>
+            <p class="text-gray-400 mb-2">Hẹn gặp lại vào ngày họp lớp: 20/11/2026</p>
             <p class="text-gray-600 text-sm">Thiết kế với tất cả tình yêu dành cho 12A1.</p>
         </div>
     </footer>
+
+    <!-- Presentation Controls -->
+    <div id="presentation-controls" class="fixed bottom-5 right-5 z-50">
+        <button onclick="startPresentation()" class="bg-navy text-white rounded-full w-16 h-16 flex items-center justify-center shadow-lg hover:bg-blue-800 transition transform hover:scale-110">
+            <i data-lucide="play" class="w-8 h-8"></i>
+        </button>
+    </div>
 
     <!-- Image Modal -->
     <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeImageModal()">
@@ -564,6 +588,18 @@
         </div>
     </div>
 
+    <!-- Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeVideoModal()">
+        <div class="relative max-w-4xl w-full bg-black rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+            <button class="absolute -top-12 right-0 text-white hover:text-accent" onclick="closeVideoModal()">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <video id="modalVideo" src="" class="w-full h-auto max-h-[85vh]" controls autoplay>
+                Trình duyệt của bạn không hỗ trợ thẻ video.
+            </video>
+            <p id="videoCaption" class="text-white text-center mt-4 font-script text-2xl"></p>
+        </div>
+    </div>
     <!-- Members List Modal (New Modal - CẬP NHẬT ĐỂ SỬ DỤNG TRANSITION) -->
     <div id="membersModal" 
         class="fixed inset-0 z-50 hidden bg-black/0 transition-opacity duration-300 opacity-0 pointer-events-none flex items-center justify-center p-4" 
@@ -585,6 +621,9 @@
     
     <!-- Custom Message Box Container -->
     <div id="message-box-container"></div>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
 
 
     <!-- Scripts -->
@@ -686,6 +725,27 @@
             document.body.style.overflow = 'auto';
         }
 
+        // ---------------------------------
+        // MODAL FUNCTIONS (Video Gallery)
+        // ---------------------------------
+        function openVideoModal(videoSrc, captionText) {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('modalVideo');
+            videoPlayer.src = videoSrc;
+            document.getElementById('videoCaption').textContent = captionText;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            videoPlayer.play();
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('modalVideo');
+            videoPlayer.pause();
+            videoPlayer.src = ""; // Dừng tải video
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
         // ---------------------------------
         // MODAL FUNCTIONS (Members List) - CẬP NHẬT LOGIC FIX LỖI ẨN
         // ---------------------------------
@@ -859,6 +919,84 @@
                 animation: fadeIn 0.5s ease-out forwards;
             }
         </style>`);
+
+        // ---------------------------------
+        // PRESENTATION / VIDEO MODE
+        // ---------------------------------
+        let isPresenting = false;
+        let isPaused = false;
+        let currentStep = 0;
+        const presentationSteps = ['#home', '#timeline', '#gallery', '#members', '#guestbook', 'footer'];
+
+        const presentationControls = document.getElementById('presentation-controls');
+        const progressBar = document.getElementById('progress-bar');
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function startPresentation() {
+            if (isPresenting) return;
+            isPresenting = true;
+            isPaused = false;
+            currentStep = 0;
+            
+            presentationControls.style.display = 'none';
+            progressBar.style.display = 'block';
+            
+            document.body.addEventListener('click', togglePause);
+
+            for (let i = 0; i < presentationSteps.length; i++) {
+                if (!isPresenting) break;
+
+                currentStep = i;
+                const sectionId = presentationSteps[i];
+                const sectionElement = document.querySelector(sectionId);
+                
+                sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Update progress bar
+                const progress = ((i + 1) / presentationSteps.length) * 100;
+                progressBar.style.width = `${progress}%`;
+
+                await delay(4000); // Wait for 4 seconds on each section
+
+                // Pause loop
+                while (isPaused) {
+                    if (!isPresenting) break;
+                    await delay(100);
+                }
+            }
+
+            stopPresentation();
+        }
+
+        function stopPresentation() {
+            isPresenting = false;
+            isPaused = false;
+            presentationControls.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressBar.style.display = 'none';
+            document.body.removeEventListener('click', togglePause);
+            // Scroll back to top
+            document.querySelector('#home').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function togglePause(event) {
+            // Prevent modal clicks from pausing
+            if (event.target.closest('#imageModal') || event.target.closest('#membersModal')) {
+                return;
+            }
+            isPaused = !isPaused;
+            if(isPaused) {
+                showMessageBox('Đã tạm dừng. Nhấn lần nữa để tiếp tục.', 'info');
+            } else {
+                showMessageBox('Tiếp tục trình chiếu...', 'info');
+            }
+        }
+
+
+
 
 
         // Initial setup for preview cards (already in HTML, but ensures data match)
